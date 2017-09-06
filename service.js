@@ -1,29 +1,19 @@
-angular.module('userProfiles').service('mainService', function($http) {
-
-	var data = [
-    {
-        "id": 0,
-        "first_name": "george",
-        "last_name": "bluth",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"
-    },
-    {
-        "id": 1,
-        "first_name": "lucille",
-        "last_name": "bluth",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg"
-    },
-    {
-        "id": 2,
-        "first_name": "oscar",
-        "last_name": "bluth",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"
-    }
-  ];
+angular.module("userProfiles").service("mainService", function($http) {
+  var self = this;
+  var baseurl = "https://reqres.in/api/users?page=1";
 
   this.getUsers = function() {
-    return data;
+    // var promise = $http({
+    //   method: "GET",
+    //   url: baseurl
+    // });
+    // return promise;
+    var promise = $http.get(baseurl).then(function(resp) {
+      self.users = resp.data.data;
+      return self.users;
+    });
+    return promise;
   };
-
-
 });
+
+// https://reqres.in/api/users
